@@ -112,6 +112,12 @@ async function startServer() {
       res.status(401).json({ error: "Invalid username or password." });
     }
   });
+  // Debug route to see all users
+app.get("/api/users", (req, res) => {
+  const users = db.prepare("SELECT * FROM users").all();
+  res.json(users);
+});
+
 
   app.post("/api/user-data", (req, res) => {
     const { userId, skills, interests, suggestions } = req.body;
