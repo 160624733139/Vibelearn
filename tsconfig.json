@@ -1,26 +1,18 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "experimentalDecorators": true,
-    "useDefineForClassFields": false,
-    "module": "ESNext",
-    "lib": [
-      "ES2022",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "module": "CommonJS",          // ✅ safer for Node backend
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",    // ✅ use node resolution for backend
     "isolatedModules": true,
-    "moduleDetection": "force",
     "allowJs": true,
     "jsx": "react-jsx",
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
-    },
-    "allowImportingTsExtensions": true,
-    "noEmit": true
-  }
+    "outDir": "dist",              // ✅ compiled files go here
+    "noEmit": false,               // ✅ allow TypeScript to output .js files
+    "esModuleInterop": true,       // ✅ smoother interop with common libs
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["server.ts", "src"], // ✅ compile backend + frontend
+  "exclude": ["node_modules"]
 }
