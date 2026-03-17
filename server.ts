@@ -2,9 +2,6 @@ import express from "express";
 import { createServer as createViteServer } from "vite";
 import path from "path";
 import Database from "better-sqlite3";
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 async function startServer() {
   const app = express();
@@ -225,19 +222,6 @@ app.get("/api/users", (req, res) => {
       res.status(500).json({ error: 'Failed to update roadmap' });
     }
   });
-  app.post("/api/goals/generate", async (req, res) => {
-  try {
-    const { prompt } = req.body; 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const result = await model.generateContent(prompt);
-
-    res.json({ goal: result.response.text() });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to generate goal" });
-  }
-});
-
 
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
